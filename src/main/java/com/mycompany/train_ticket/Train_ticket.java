@@ -24,7 +24,7 @@ public class Train_ticket {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Hello World!");
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer(1,"Nguyen Van A",new Date(2000,1,1),"Vip"));
+        customers.add(new Customer(1,"Nguyen Van A","01/01/2003","Vip"));
         String path = System.getProperty("user.dir") + "/src/Files/customer.dat";
         System.out.println(path);
 
