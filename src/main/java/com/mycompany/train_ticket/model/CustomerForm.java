@@ -8,6 +8,7 @@ import com.mycompany.train_ticket.controller.IOSystem;
 import com.mycompany.train_ticket.data.CustomerDAO;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ public class CustomerForm extends javax.swing.JPanel {
      */
     public CustomerForm() {
         initComponents();
+        editSetting();
+        btn_edit.requestFocus();
     }
 
     /**
@@ -70,13 +73,7 @@ public class CustomerForm extends javax.swing.JPanel {
         btn_save.setText("SAVE");
         btn_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    btn_saveActionPerformed(evt);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+                btn_saveActionPerformed(evt);
             }
         });
 
@@ -99,27 +96,23 @@ public class CustomerForm extends javax.swing.JPanel {
                                                         .addComponent(jLabel1)
                                                         .addComponent(jLabel4))
                                                 .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txt_name)
-                                                        .addComponent(txt_code)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(txt_code, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                                                        .addComponent(txt_name)))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(jLabel3)
                                                         .addComponent(jLabel2))
                                                 .addGap(46, 46, 46)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(cbox_type, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGroup(layout.createSequentialGroup()
-                                                                                .addComponent(btn_add)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(btn_save)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(btn_edit)))
-                                                                .addGap(0, 76, Short.MAX_VALUE))
-                                                        .addComponent(txt_dob))))
-                                .addContainerGap())
+                                                        .addComponent(cbox_type, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                        .addComponent(btn_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btn_save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,39 +120,37 @@ public class CustomerForm extends javax.swing.JPanel {
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel4)
-                                        .addComponent(txt_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txt_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_edit))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel1)
-                                        .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_add))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel2)
-                                        .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txt_dob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btn_save))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel3)
                                         .addComponent(cbox_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btn_add)
-                                        .addComponent(btn_save)
-                                        .addComponent(btn_edit))
-                                .addContainerGap(70, Short.MAX_VALUE))
+                                .addContainerGap(125, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-        // TODO add your handling code here:
+        addSetting();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        // TODO add your handling code here:
+        editSetting();
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void txt_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codeActionPerformed
         String code = txt_code.getText();
-        jLabel1.requestFocus();
+        txt_name.requestFocus();
         if (code.length() != 5) {
             JOptionPane.showMessageDialog(this, "Code must be 5 characters");
             txt_code.requestFocus();
@@ -173,16 +164,38 @@ public class CustomerForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txt_codeActionPerformed
 
-    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) throws IOException, ClassNotFoundException {//GEN-FIRST:event_btn_saveActionPerformed
-        saveCustomer();
+    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
+        try {
+            if (txt_code.isEnabled()) {
+                updateCustomer();
+            } else {
+                addCustomer();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        txt_code.setText("");
+        txt_name.setText("");
+        txt_dob.setText("");
+        cbox_type.setSelectedIndex(0);
     }//GEN-LAST:event_btn_saveActionPerformed
 
+    private void updateCustomer() throws IOException, ClassNotFoundException {
+        String code = txt_code.getText();
+        String name = txt_name.getText();
+        String dob = txt_dob.getText();
+        String type = cbox_type.getSelectedItem().toString();
+        Customer customer = new Customer(Integer.parseInt(code), name, dob, type);
+        CustomerDAO.updateCustomer(customer);
+    }
 
-    private void saveCustomer() throws IOException, ClassNotFoundException {
-//        lít rong co kieu Customer
-        List<Customer> list = new ArrayList<Customer>();
-        Customer customer = new Customer(12345, "Nguyen Van A", "12/12/1999", "Retail");
-        CustomerDAO.addCustomer(list);
+    private void addCustomer() throws IOException, ClassNotFoundException {
+        String code = txt_code.getText();
+        String name = txt_name.getText();
+        String dob = txt_dob.getText();
+        String type = cbox_type.getSelectedItem().toString();
+        Customer customer = new Customer(Integer.parseInt(code), name, dob, type);
+        CustomerDAO.addCustomer(customer);
     }
 
     private void getCustomerById(String code) throws IOException, ClassNotFoundException {
@@ -195,6 +208,32 @@ public class CustomerForm extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Customer not found");
         }
+    }
+
+    private void addSetting() {
+        txt_name.setEditable(true);
+        txt_dob.setEditable(true);
+        cbox_type.setEditable(true);
+        txt_code.setEnabled(false);
+        btn_edit.setBackground(new java.awt.Color(240, 240, 240));
+        btn_add.setBackground(new java.awt.Color(72, 202, 228));
+        txt_name.setText("");
+        txt_dob.setText("");
+        txt_code.setText("");
+        cbox_type.setSelectedIndex(0);
+    }
+
+    private void editSetting() {
+        txt_name.setEditable(true);
+        txt_dob.setEditable(true);
+        cbox_type.setEditable(true);
+        txt_code.setEnabled(true);
+        btn_edit.setBackground(new java.awt.Color(72, 202, 228));
+        btn_add.setBackground(new java.awt.Color(240, 240, 240));
+        txt_code.setText("");
+        txt_name.setText("");
+        txt_dob.setText("");
+        cbox_type.setSelectedIndex(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
