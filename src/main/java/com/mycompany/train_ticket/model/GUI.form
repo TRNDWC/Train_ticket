@@ -44,16 +44,25 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="By Price in Ticket"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_priceActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="item_date">
               <Properties>
                 <Property name="text" type="java.lang.String" value="By date in Bill"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_dateActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="item_money">
               <Properties>
                 <Property name="text" type="java.lang.String" value="By total money in Bill"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="item_moneyActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -7,10 +7,12 @@ public class Ticket {
     private String seatType;
     private long price;
     private Date ticketSold;
-    public Ticket(int code, String seatType,long price){
-        this.ticketCode=code;
-        this.seatType= seatType;
-        this.price=price;
+    private Customer owner = null;
+
+    public Ticket(int code, String seatType, long price) {
+        this.ticketCode = code;
+        this.seatType = seatType;
+        this.price = price;
     }
 
     public int getTicketCode() {
@@ -43,5 +45,13 @@ public class Ticket {
 
     public void setTicketSold(Date ticketSold) {
         this.ticketSold = ticketSold;
+    }
+
+    public Customer getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Customer owner) {
+        this.owner = owner;
     }
 }

@@ -20,6 +20,8 @@ public class GUI extends javax.swing.JFrame {
         panel_holder.add("CustomerForm",new CustomerForm());
         panel_holder.add("TicketForm",new TicketForm());
         panel_holder.add("BillForm",new BillForm());
+        panel_holder.add("SortTicketForm",new SortTicketForm());
+        panel_holder.add("SortBillForm",new SortBillForm());
     }
 
     /**
@@ -88,12 +90,27 @@ public class GUI extends javax.swing.JFrame {
         jMenu2.setText("Sort");
 
         item_price.setText("By Price in Ticket");
+        item_price.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_priceActionPerformed(evt);
+            }
+        });
         jMenu2.add(item_price);
 
         item_date.setText("By date in Bill");
+        item_date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_dateActionPerformed(evt);
+            }
+        });
         jMenu2.add(item_date);
 
         item_money.setText("By total money in Bill");
+        item_money.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_moneyActionPerformed(evt);
+            }
+        });
         jMenu2.add(item_money);
 
         jMenuBar1.add(jMenu2);
@@ -132,6 +149,18 @@ public class GUI extends javax.swing.JFrame {
     private void item_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_billActionPerformed
         crdlayout.show(panel_holder, "BillForm");
     }//GEN-LAST:event_item_billActionPerformed
+
+    private void item_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_priceActionPerformed
+        crdlayout.show(panel_holder,"SortTicketForm");
+    }//GEN-LAST:event_item_priceActionPerformed
+
+    private void item_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_dateActionPerformed
+        crdlayout.show(panel_holder,"SortBillForm");
+    }//GEN-LAST:event_item_dateActionPerformed
+
+    private void item_moneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_moneyActionPerformed
+        crdlayout.show(panel_holder,"SortBillForm");
+    }//GEN-LAST:event_item_moneyActionPerformed
 
     /**
      * @param args the command line arguments
