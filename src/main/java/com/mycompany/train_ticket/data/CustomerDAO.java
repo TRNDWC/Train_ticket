@@ -11,7 +11,7 @@ public class CustomerDAO {
         IOSystem io = IOSystem.getInstance();
         List<Customer> listCustomer = io.read("src/main/java/com/mycompany/train_ticket/data/CUSTOMER.DAT");
         for (Customer customer : listCustomer) {
-            System.out.println("hello");
+            System.out.println(customer.getFullName());
             if (customer.getCode() == code) {
                 return customer;
             }
@@ -19,8 +19,22 @@ public class CustomerDAO {
         return null;
     }
 
-    public static void addCustomer(List<Customer> listCustomer) throws IOException, ClassNotFoundException {
+    public static void addCustomer(Customer customer) throws IOException, ClassNotFoundException {
         IOSystem io = IOSystem.getInstance();
+        List<Customer> listCustomer = io.read("src/main/java/com/mycompany/train_ticket/data/CUSTOMER.DAT");
+        listCustomer.add(customer);
+        io.write(listCustomer, "src/main/java/com/mycompany/train_ticket/data/CUSTOMER.DAT");
+    }
+
+    public static void updateCustomer(Customer customer) throws IOException, ClassNotFoundException {
+        IOSystem io = IOSystem.getInstance();
+        List<Customer> listCustomer = io.read("src/main/java/com/mycompany/train_ticket/data/CUSTOMER.DAT");
+        for (int i = 0; i < listCustomer.size(); i++) {
+            if (listCustomer.get(i).getCode() == customer.getCode()) {
+                listCustomer.set(i, customer);
+                break;
+            }
+        }
         io.write(listCustomer, "src/main/java/com/mycompany/train_ticket/data/CUSTOMER.DAT");
     }
 }
