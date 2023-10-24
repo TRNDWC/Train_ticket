@@ -52,4 +52,7 @@ public class Bill {
             this.totalPrice+=i.getPrice();
         }
     }
+    public void addTicket(Ticket ticket){
+        this.tickets.add(ticket);
+    }
 }

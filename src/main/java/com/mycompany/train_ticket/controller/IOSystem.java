@@ -17,7 +17,7 @@ import java.util.List;
 public class IOSystem {
 
     private static IOSystem ioSystemInstance;
-    private IOSystem() {
+    public IOSystem() {
     }
     public static IOSystem getInstance() {
         if (ioSystemInstance == null) {

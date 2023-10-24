@@ -9,7 +9,6 @@ package com.mycompany.train_ticket.model;
  * @author LENOVO
  */
 public class BillForm extends javax.swing.JPanel {
-
     /**
      * Creates new form BillForm
      */
@@ -96,11 +95,11 @@ public class BillForm extends javax.swing.JPanel {
                     .addComponent(btn_add_to_bill))
                 .addGap(18, 18, 18)
                 .addComponent(lb_warning)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_add_bill)
                     .addComponent(btn_save_bill))
-                .addGap(71, 71, 71))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -123,4 +122,6 @@ public class BillForm extends javax.swing.JPanel {
     private javax.swing.JTextField txt_customer_code;
     private javax.swing.JTextField txt_name;
     // End of variables declaration//GEN-END:variables
+
+
 }

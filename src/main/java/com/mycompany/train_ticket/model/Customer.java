@@ -1,17 +1,19 @@
 package com.mycompany.train_ticket.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Customer {
+public class Customer implements Serializable {
     private int code;
     private String fullName;
-    private Date birth;
+    private String birth;
     private String type;
-    public Customer(int code, String fullName,Date birth,String type){
-        this.birth=birth;
-        this.code=code;
-        this.fullName=fullName;
-        this.type=type;
+
+    public Customer(int code, String fullName, String birth, String type) {
+        this.birth = birth;
+        this.code = code;
+        this.fullName = fullName;
+        this.type = type;
     }
 
     public long getCode() {
@@ -30,11 +32,11 @@ public class Customer {
         this.fullName = fullName;
     }
 
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 
