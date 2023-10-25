@@ -9,6 +9,21 @@ import java.util.List;
 import java.util.Objects;
 
 public class TicketDAO {
+    public static Ticket getTicket(String ticketCode) {
+        IOSystem io = IOSystem.getInstance();
+        try {
+            List<Ticket> tickets = io.read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
+            for (Ticket ticket : tickets) {
+                if (Objects.equals(ticket.getTicketCode(), ticketCode)) {
+                    return ticket;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void addTicket(Ticket ticket) throws IOException, ClassNotFoundException {
         IOSystem io = IOSystem.getInstance();
         List<Ticket> tickets = io.read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
@@ -39,7 +54,7 @@ public class TicketDAO {
         return null;
     }
 
-    public void updateTicket(Ticket ticket) throws IOException, ClassNotFoundException {
+    public static void updateTicket(Ticket ticket) throws IOException, ClassNotFoundException {
         IOSystem io = IOSystem.getInstance();
         List<Ticket> tickets = io.read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
         for (int i = 0; i < tickets.size(); i++) {
@@ -75,8 +90,13 @@ public class TicketDAO {
     }
 
 
-    public List<Ticket> getAllTickets() throws IOException, ClassNotFoundException {
+    public static List<Ticket> getAllTickets() throws IOException, ClassNotFoundException {
         IOSystem io = IOSystem.getInstance();
-        return io.read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
+        List<Ticket> tickets = io.read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
+        tickets.removeIf(ticket -> ticket.getOwner() != null);
+        tickets.forEach(ticket ->
+                System.out.println(ticket.getTicketCode() + " " + ticket.getSeatType() + " " + ticket.getPrice())
+        );
+        return tickets;
     }
 }

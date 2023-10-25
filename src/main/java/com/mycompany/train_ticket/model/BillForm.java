@@ -5,7 +5,13 @@
 package com.mycompany.train_ticket.model;
 
 import com.mycompany.train_ticket.controller.IOSystem;
+import com.mycompany.train_ticket.data.BillDAO;
+import com.mycompany.train_ticket.data.CustomerDAO;
+import com.mycompany.train_ticket.data.TicketDAO;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +23,13 @@ public class BillForm extends javax.swing.JPanel {
     /**
      * Creates new form BillForm
      */
+    List<Ticket> tickets = new ArrayList<>();
+
     public BillForm() {
         initComponents();
+        updateTable();
+        lb_tickets.setText("Tickets:");
+        price.setText("Price: ");
     }
 
     /**
@@ -30,7 +41,7 @@ public class BillForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txt_name = new javax.swing.JTextField();
+        txt_ticket_code = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txt_customer_code = new javax.swing.JTextField();
@@ -39,10 +50,12 @@ public class BillForm extends javax.swing.JPanel {
         btn_save_bill = new javax.swing.JButton();
         lb_tickets = new javax.swing.JLabel();
         price = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        txt_name.addActionListener(new java.awt.event.ActionListener() {
+        txt_ticket_code.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nameActionPerformed(evt);
+                txt_ticket_codeActionPerformed(evt);
             }
         });
 
@@ -81,6 +94,19 @@ public class BillForm extends javax.swing.JPanel {
 
         price.setText("jLabel2");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String[]{
+                        "Ticket Code", "Seat Type", "Price"
+                }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,68 +114,158 @@ public class BillForm extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_add_bill)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(btn_save_bill)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addComponent(lb_tickets)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(price))
-                                                                .addComponent(txt_name, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                                                .addComponent(txt_customer_code)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel1)
+                                                        .addComponent(jLabel4))
                                                 .addGap(18, 18, 18)
-                                                .addComponent(btn_add_to_bill)))
-                                .addContainerGap(58, Short.MAX_VALUE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(btn_add_bill)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(btn_save_bill)
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                                .addComponent(txt_ticket_code, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                                                                .addComponent(txt_customer_code)))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(btn_add_to_bill)))
+                                                .addGap(72, 72, 72)
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lb_tickets)
+                                        .addComponent(price))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4)
-                                        .addComponent(txt_customer_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(43, 43, 43)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(txt_customer_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(jLabel1)
+                                                        .addComponent(txt_ticket_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(btn_add_to_bill))
+                                                .addGap(29, 29, 29)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(btn_add_bill)
+                                                        .addComponent(btn_save_bill)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(lb_tickets)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(txt_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btn_add_to_bill))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lb_tickets)
-                                        .addComponent(price))
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(btn_add_bill)
-                                        .addComponent(btn_save_bill))
-                                .addContainerGap(94, Short.MAX_VALUE))
+                                .addComponent(price)
+                                .addGap(11, 11, 11))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_add_to_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_to_billActionPerformed
-        // TODO add your handling code here:
+        String tCode = txt_ticket_code.getText();
+        String cCode = txt_customer_code.getText();
+        try {
+            addTicket(tCode, cCode);
+            txt_ticket_code.setText("");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_add_to_billActionPerformed
 
-    private void txt_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nameActionPerformed
+    private void txt_ticket_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ticket_codeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nameActionPerformed
+    }//GEN-LAST:event_txt_ticket_codeActionPerformed
 
     private void txt_customer_codeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_customer_codeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_customer_codeActionPerformed
 
     private void btn_add_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_billActionPerformed
-        // TODO add your handling code here:
+        txt_ticket_code.setText("");
+        txt_customer_code.setText("");
+        lb_tickets.setText("Tickets: ");
+        price.setText("Price: ");
+        tickets.clear();
     }//GEN-LAST:event_btn_add_billActionPerformed
 
     private void btn_save_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_save_billActionPerformed
+        if (tickets.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No ticket added");
+            return;
+        }
+        try {
+            Long pr = Long.parseLong(price.getText().substring(7));
+            Bill bill = new Bill(tickets, CustomerDAO.getCustomerByCode(txt_customer_code.getText()), BillDAO.getAvailableBillCode(), pr);
+            bill.totalPrice();
+            BillDAO.addBill(bill);
+            JOptionPane.showMessageDialog(null, "Bill saved\nCustomer: " + bill.getCustomer().getFullName() + "\nTotal price: " + bill.getTotalPrice() + "\nDate: " + bill.getDate());
+            tickets.forEach(ticket -> {
+                try {
+                    ticket.setOwner(bill.getCustomer());
+                    TicketDAO.updateTicket(ticket);
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            tickets.clear();
+            lb_tickets.setText("Tickets: ");
+            price.setText("Price: ");
+            txt_ticket_code.setText("");
+            txt_customer_code.setText("");
+            updateTable();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_save_billActionPerformed
 
+    private void addTicket(String ticketCode, String customerCode) throws IOException, ClassNotFoundException {
+        Ticket ticket = TicketDAO.getTicket(ticketCode);
+        Customer customer = CustomerDAO.getCustomerByCode(customerCode);
+//        nếu trong tickets có ticket có code trùng với ticketCode thì return
+        for (Ticket t : tickets) {
+            if (t.getTicketCode().equals(ticketCode)) {
+                JOptionPane.showMessageDialog(null, "Ticket already added");
+                return;
+            }
+        }
+        if (ticket != null && customer != null) {
+            if (ticket.getOwner() != null) {
+                JOptionPane.showMessageDialog(null, "Ticket already sold");
+                return;
+            }
+
+            tickets.add(ticket);
+            if (lb_tickets.getText().equals("Tickets: ")) {
+                lb_tickets.setText("Tickets: " + ticket.getTicketCode());
+            } else {
+                lb_tickets.setText(lb_tickets.getText() + "|" + ticket.getTicketCode());
+            }
+            if (price.getText().equals("Price: ")) {
+                price.setText("Price: " + ticket.getPrice());
+            } else {
+                price.setText("Price: " + (Long.parseLong(price.getText().substring(7)) + ticket.getPrice()));
+            }
+            updateTable();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ticket or Customer not found");
+        }
+    }
+
+    private void updateTable() {
+        try {
+            List<Ticket> aTickets = TicketDAO.getAllTickets();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            for (Ticket ticket : aTickets) {
+                model.addRow(new Object[]{ticket.getTicketCode(), ticket.getSeatType(), ticket.getPrice()});
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add_bill;
@@ -157,10 +273,12 @@ public class BillForm extends javax.swing.JPanel {
     private javax.swing.JButton btn_save_bill;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lb_tickets;
     private javax.swing.JLabel price;
     private javax.swing.JTextField txt_customer_code;
-    private javax.swing.JTextField txt_name;
+    private javax.swing.JTextField txt_ticket_code;
     // End of variables declaration//GEN-END:variables
 
 
