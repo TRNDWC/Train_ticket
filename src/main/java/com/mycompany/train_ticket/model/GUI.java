@@ -21,7 +21,6 @@ public class GUI extends javax.swing.JFrame {
         panel_holder.add("TicketForm",new TicketForm());
         panel_holder.add("BillForm",new BillForm());
         panel_holder.add("SortTicketForm",new SortTicketForm());
-        panel_holder.add("SortBillForm",new SortBillForm());
     }
 
     /**
@@ -151,14 +150,19 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_item_billActionPerformed
 
     private void item_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_priceActionPerformed
+        panel_holder.add("SortTicketForm",new SortTicketForm());
+
         crdlayout.show(panel_holder,"SortTicketForm");
     }//GEN-LAST:event_item_priceActionPerformed
 
     private void item_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_dateActionPerformed
+        panel_holder.add("SortBillForm",new SortBillForm(EBillSort.BY_DATE));
+
         crdlayout.show(panel_holder,"SortBillForm");
     }//GEN-LAST:event_item_dateActionPerformed
 
     private void item_moneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_moneyActionPerformed
+        panel_holder.add("SortBillForm",new SortBillForm(EBillSort.BY_TOTAL_PRICE));
         crdlayout.show(panel_holder,"SortBillForm");
     }//GEN-LAST:event_item_moneyActionPerformed
 

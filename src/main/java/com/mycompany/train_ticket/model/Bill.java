@@ -12,20 +12,24 @@ public class Bill implements Serializable {
     private long totalPrice;
     private LocalDate date;
 
-    public Bill(List<Ticket> tickets, Customer customer, String billCode, long totalPrice) {
+    public Bill(List<Ticket> tickets, Customer customer, String billCode) {
         this.tickets = tickets;
         this.customer = customer;
         this.billCode = billCode;
-        this.totalPrice = totalPrice;
         this.date = LocalDate.now();
+        for (Ticket i : tickets) {
+            this.totalPrice += i.getPrice();
+        }
     }
 
-    public Bill(List<Ticket> tickets, Customer customer, String billCode, long totalPrice, LocalDate date) {
+    public Bill(List<Ticket> tickets, Customer customer, String billCode, LocalDate date) {
         this.tickets = tickets;
         this.customer = customer;
         this.billCode = billCode;
-        this.totalPrice = totalPrice;
         this.date = date;
+        for (Ticket i : tickets) {
+            this.totalPrice += i.getPrice();
+        }
     }
 
     public List<Ticket> getTickets() {
@@ -53,17 +57,15 @@ public class Bill implements Serializable {
     }
 
     public long getTotalPrice() {
+        this.totalPrice = 0;
+        for (Ticket i : tickets) {
+            this.totalPrice += i.getPrice();
+        }
         return totalPrice;
     }
 
     public void addTickets(Ticket ticket) {
         this.tickets.add(ticket);
-    }
-
-    public void totalPrice() {
-        for (Ticket i : tickets) {
-            this.totalPrice += i.getPrice();
-        }
     }
 
     public void addTicket(Ticket ticket) {

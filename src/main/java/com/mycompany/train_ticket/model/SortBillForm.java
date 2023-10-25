@@ -4,6 +4,12 @@
  */
 package com.mycompany.train_ticket.model;
 
+import com.mycompany.train_ticket.data.BillDAO;
+
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author LENOVO
@@ -13,8 +19,23 @@ public class SortBillForm extends javax.swing.JPanel {
     /**
      * Creates new form SortBillForm
      */
-    public SortBillForm() {
+        public SortBillForm(EBillSort eBillSort) {
         initComponents();
+        List<Bill> bills = null;
+        if (eBillSort == EBillSort.BY_DATE) {
+            bills = BillDAO.getInstance().getBillsSortedByDate();
+        } else {
+            bills = BillDAO.getInstance().getBillsSortedByTotalPrice();
+        }
+        fillTableData(bills);
+    }
+
+    public void fillTableData(List<Bill> bills){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Bill bill : bills) {
+            model.addRow(new Object[]{bill.getBillCode(), bill.getCustomer().getCode(), bill.getDate(), bill.getTotalPrice()});
+        }
     }
 
     /**
@@ -37,11 +58,11 @@ public class SortBillForm extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Customer ID", "Ticket ID", "Date"
+                "ID", "Customer ID", "Date", "Total Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
