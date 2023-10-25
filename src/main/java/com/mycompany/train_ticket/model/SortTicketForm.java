@@ -4,17 +4,25 @@
  */
 package com.mycompany.train_ticket.model;
 
+import com.mycompany.train_ticket.controller.IOSystem;
+
+import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  *
  * @author LENOVO
  */
-public class SortTicketForm extends javax.swing.JPanel {
+public class SortTicketForm extends javax.swing.JPanel implements Comparator<Ticket> {
 
     /**
      * Creates new form SortForm
      */
     public SortTicketForm() {
         initComponents();
+        sshow();
     }
 
     /**
@@ -68,8 +76,31 @@ public class SortTicketForm extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+    public int compare(Ticket t1, Ticket t2) {
+        return (int) (t2.getPrice() - t1.getPrice());
+    }
+    public void sshow(){
+//        String path = System.getProperty("user.dir") + "/src/Files/TICKET.dat";
+        List<Ticket> listTicket = null;
+        try {
+            listTicket = IOSystem.getInstance().read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
+            listTicket.sort(this);
+            fillTableData(listTicket);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 
+    public void fillTableData(List<Ticket> tickets){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Ticket ticket : tickets) {
+            model.addRow(new Object[]{ticket.getTicketCode(), ticket.getSeatType(), ticket.getPrice()});
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

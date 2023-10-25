@@ -4,38 +4,24 @@
  */
 package com.mycompany.train_ticket.model;
 
-import com.mycompany.train_ticket.data.BillDAO;
+import com.mycompany.train_ticket.controller.IOSystem;
 
 import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
-public class SortBillForm extends javax.swing.JPanel {
+public class StatisticForm extends javax.swing.JPanel {
 
     /**
-     * Creates new form SortBillForm
+     * Creates new form SortForm
      */
-        public SortBillForm(EBillSort eBillSort) {
+    public StatisticForm() {
         initComponents();
-        List<Bill> bills = null;
-        if (eBillSort == EBillSort.BY_DATE) {
-            bills = BillDAO.getInstance().getBillsSortedByDate();
-        } else {
-            bills = BillDAO.getInstance().getBillsSortedByTotalPrice();
-        }
-        fillTableData(bills);
-    }
-
-    public void fillTableData(List<Bill> bills){
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        for (Bill bill : bills) {
-            model.addRow(new Object[]{bill.getBillCode(), bill.getCustomer().getCode(), bill.getDate(), bill.getTotalPrice()});
-        }
+        sshow();
     }
 
     /**
@@ -52,20 +38,20 @@ public class SortBillForm extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Customer ID", "Date", "Total Price"
+                "Year", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -82,15 +68,34 @@ public class SortBillForm extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void sshow(){
+        List<Bill> listBill = null;
+        try {
+            listBill = IOSystem.getInstance().read("src/main/java/com/mycompany/train_ticket/data/BILL.DAT");
+            fillTableData(listBill);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    public void fillTableData(List<Bill> bills){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Bill a :bills){
+            model.addRow(new Object[]{a.getDate().getYear(),a.getTotalPrice()});
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

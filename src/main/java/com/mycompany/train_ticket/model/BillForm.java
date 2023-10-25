@@ -197,9 +197,9 @@ public class BillForm extends javax.swing.JPanel {
             return;
         }
         try {
-            Long pr = Long.parseLong(price.getText().substring(7));
-            Bill bill = new Bill(tickets, CustomerDAO.getCustomerByCode(txt_customer_code.getText()), BillDAO.getAvailableBillCode(), pr);
-            bill.totalPrice();
+//            Long pr = Long.parseLong(price.getText().substring(7));
+            Bill bill = new Bill(tickets, CustomerDAO.getCustomerByCode(txt_customer_code.getText()), BillDAO.getAvailableBillCode());
+//            bill.totalPrice();
             BillDAO.addBill(bill);
             JOptionPane.showMessageDialog(null, "Bill saved\nCustomer: " + bill.getCustomer().getFullName() + "\nTotal price: " + bill.getTotalPrice() + "\nDate: " + bill.getDate());
             tickets.forEach(ticket -> {

@@ -5,6 +5,7 @@
 package com.mycompany.train_ticket.model;
 
 import java.awt.CardLayout;
+import java.io.IOException;
 import javax.swing.JPanel;
 
 /**
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
  */
 public class GUI extends javax.swing.JFrame {
     CardLayout crdlayout;
-    public GUI() {
+    public GUI()  {
         initComponents();
         crdlayout = new CardLayout();
         panel_holder.setLayout(crdlayout);
@@ -21,7 +22,7 @@ public class GUI extends javax.swing.JFrame {
         panel_holder.add("TicketForm",new TicketForm());
         panel_holder.add("BillForm",new BillForm());
         panel_holder.add("SortTicketForm",new SortTicketForm());
-        panel_holder.add("SortBillForm",new SortBillForm());
+        panel_holder.add("StatisticForm",new StatisticForm());
     }
 
     /**
@@ -118,6 +119,11 @@ public class GUI extends javax.swing.JFrame {
         jMenu3.setText("Statistic");
 
         item_sum.setText("Sum of total money by year");
+        item_sum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                item_sumActionPerformed(evt);
+            }
+        });
         jMenu3.add(item_sum);
 
         jMenuBar1.add(jMenu3);
@@ -155,12 +161,18 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_item_priceActionPerformed
 
     private void item_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_dateActionPerformed
+        panel_holder.add("SortBillForm",new SortBillForm(EBillSort.BY_DATE));
         crdlayout.show(panel_holder,"SortBillForm");
     }//GEN-LAST:event_item_dateActionPerformed
 
     private void item_moneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_moneyActionPerformed
+        panel_holder.add("SortBillForm",new SortBillForm(EBillSort.BY_TOTAL_PRICE));
         crdlayout.show(panel_holder,"SortBillForm");
     }//GEN-LAST:event_item_moneyActionPerformed
+
+    private void item_sumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_sumActionPerformed
+        crdlayout.show(panel_holder,"StatisticForm");
+    }//GEN-LAST:event_item_sumActionPerformed
 
     /**
      * @param args the command line arguments
