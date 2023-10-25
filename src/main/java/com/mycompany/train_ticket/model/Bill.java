@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bill implements Serializable {
+    private String billCode;
     private List<Ticket> tickets;
     private Customer customer;
-    private String billCode;
     private long totalPrice;
     private LocalDate date;
 
