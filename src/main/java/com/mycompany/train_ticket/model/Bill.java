@@ -57,10 +57,6 @@ public class Bill implements Serializable {
     }
 
     public long getTotalPrice() {
-        this.totalPrice = 0;
-        for (Ticket i : tickets) {
-            this.totalPrice += i.getPrice();
-        }
         return totalPrice;
     }
 
