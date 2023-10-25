@@ -8,19 +8,18 @@ import com.mycompany.train_ticket.controller.IOSystem;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
-public class SortTicketForm extends javax.swing.JPanel implements Comparator<Ticket> {
+public class StatisticForm extends javax.swing.JPanel {
 
     /**
      * Creates new form SortForm
      */
-    public SortTicketForm() {
+    public StatisticForm() {
         initComponents();
         sshow();
     }
@@ -39,20 +38,20 @@ public class SortTicketForm extends javax.swing.JPanel implements Comparator<Tic
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Seat Type", "Price"
+                "Year", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Long.class
+                java.lang.String.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -69,23 +68,19 @@ public class SortTicketForm extends javax.swing.JPanel implements Comparator<Tic
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-    public int compare(Ticket t1, Ticket t2) {
-        return (int) (t2.getPrice() - t1.getPrice());
-    }
+
     public void sshow(){
-//        String path = System.getProperty("user.dir") + "/src/Files/TICKET.dat";
-        List<Ticket> listTicket = null;
+        List<Bill> listBill = null;
         try {
-            listTicket = IOSystem.getInstance().read("src/main/java/com/mycompany/train_ticket/data/TICKET.DAT");
-            listTicket.sort(this);
-            fillTableData(listTicket);
+            listBill = IOSystem.getInstance().read("src/main/java/com/mycompany/train_ticket/data/BILL.DAT");
+            fillTableData(listBill);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -94,11 +89,11 @@ public class SortTicketForm extends javax.swing.JPanel implements Comparator<Tic
 
     }
 
-    public void fillTableData(List<Ticket> tickets){
+    public void fillTableData(List<Bill> bills){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
-        for (Ticket ticket : tickets) {
-            model.addRow(new Object[]{ticket.getTicketCode(), ticket.getSeatType(), ticket.getPrice()});
+        for (Bill a :bills){
+            model.addRow(new Object[]{a.getDate().getYear(),a.getTotalPrice()});
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
