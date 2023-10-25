@@ -1,6 +1,7 @@
 package com.mycompany.train_ticket.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +10,22 @@ public class Bill implements Serializable {
     private Customer customer;
     private String billCode;
     private long totalPrice;
+    private LocalDate date;
 
     public Bill(List<Ticket> tickets, Customer customer, String billCode, long totalPrice) {
         this.tickets = tickets;
         this.customer = customer;
         this.billCode = billCode;
         this.totalPrice = totalPrice;
+        this.date = LocalDate.now();
+    }
+
+    public Bill(List<Ticket> tickets, Customer customer, String billCode, long totalPrice, LocalDate date) {
+        this.tickets = tickets;
+        this.customer = customer;
+        this.billCode = billCode;
+        this.totalPrice = totalPrice;
+        this.date = date;
     }
 
     public List<Ticket> getTickets() {
@@ -57,5 +68,17 @@ public class Bill implements Serializable {
 
     public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
+    }
+
+    public void setTotalPrice(long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
