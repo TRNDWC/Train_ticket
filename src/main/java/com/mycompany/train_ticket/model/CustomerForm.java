@@ -12,6 +12,7 @@ import javax.swing.border.LineBorder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author LENOVO
@@ -185,22 +186,23 @@ public class CustomerForm extends javax.swing.JPanel {
         String name = txt_name.getText();
         String dob = txt_dob.getText();
         String type = cbox_type.getSelectedItem().toString();
-        Customer customer = new Customer(Integer.parseInt(code), name, dob, type);
+        Customer customer = new Customer(code, name, dob, type);
         CustomerDAO.updateCustomer(customer);
+        JOptionPane.showMessageDialog(this, "Customer updated:\ncode: " + code + "\nname: " + name + "\ndob: " + dob + "\ntype: " + type);
     }
 
     private void addCustomer() throws IOException, ClassNotFoundException {
-        String code = txt_code.getText();
+        String code = CustomerDAO.getAvailableCode();
         String name = txt_name.getText();
         String dob = txt_dob.getText();
-        String type = cbox_type.getSelectedItem().toString();
-        Customer customer = new Customer(Integer.parseInt(code), name, dob, type);
+        String type = Objects.requireNonNull(cbox_type.getSelectedItem()).toString();
+        Customer customer = new Customer(code, name, dob, type);
         CustomerDAO.addCustomer(customer);
+        JOptionPane.showMessageDialog(this, "Customer added:\ncode: " + code + "\nname: " + name + "\ndob: " + dob + "\ntype: " + type);
     }
 
     private void getCustomerById(String code) throws IOException, ClassNotFoundException {
-        int mCode = Integer.parseInt(code);
-        Customer customer = CustomerDAO.getCustomerByCode(mCode);
+        Customer customer = CustomerDAO.getCustomerByCode(code);
         if (customer != null) {
             txt_name.setText(customer.getFullName());
             txt_dob.setText(customer.getBirth());

@@ -28,12 +28,14 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="btn_save_bill" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="lb_warning" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txt_name" pref="190" max="32767" attributes="0"/>
-                                  <Component id="txt_customer_code" max="32767" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lb_tickets" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="price" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="txt_name" pref="190" max="32767" attributes="0"/>
+                              <Component id="txt_customer_code" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -59,7 +61,10 @@
                   <Component id="btn_add_to_bill" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="lb_warning" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lb_tickets" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="price" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_add_bill" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -87,6 +92,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_customer_code">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_customer_codeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_add_to_bill">
       <Properties>
@@ -100,13 +108,24 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_add_billActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_save_bill">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_save_billActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb_warning">
+    <Component class="javax.swing.JLabel" name="lb_tickets">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="price">
       <Properties>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
       </Properties>

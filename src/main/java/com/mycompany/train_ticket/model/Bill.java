@@ -1,18 +1,20 @@
 package com.mycompany.train_ticket.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bill {
+public class Bill implements Serializable {
     private List<Ticket> tickets;
     private Customer customer;
-    private long billCode;
+    private String billCode;
     private long totalPrice;
-    public Bill(ArrayList<Ticket> tickets, Customer customer, long billCode, long totalPrice){
-        this.tickets=tickets;
-        this.customer=customer;
-        this.billCode=billCode;
-        this.totalPrice=totalPrice;
+
+    public Bill(List<Ticket> tickets, Customer customer, String billCode, long totalPrice) {
+        this.tickets = tickets;
+        this.customer = customer;
+        this.billCode = billCode;
+        this.totalPrice = totalPrice;
     }
 
     public List<Ticket> getTickets() {
@@ -31,11 +33,11 @@ public class Bill {
         this.customer = customer;
     }
 
-    public long getBillCode() {
+    public String getBillCode() {
         return billCode;
     }
 
-    public void setBillCode(long billCode) {
+    public void setBillCode(String billCode) {
         this.billCode = billCode;
     }
 
@@ -43,16 +45,17 @@ public class Bill {
         return totalPrice;
     }
 
-    public void addTickets(Ticket ticket){
+    public void addTickets(Ticket ticket) {
         this.tickets.add(ticket);
     }
 
-    public void totalPrice(){
-        for (Ticket i : tickets){
-            this.totalPrice+=i.getPrice();
+    public void totalPrice() {
+        for (Ticket i : tickets) {
+            this.totalPrice += i.getPrice();
         }
     }
-    public void addTicket(Ticket ticket){
+
+    public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
     }
 }
