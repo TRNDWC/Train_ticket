@@ -23,17 +23,7 @@ public class BillDAO {
         return billDAOInstance;
     }
     public List<Bill> getBills() {
-        List<Bill> bills = new ArrayList<>();
-        Bill bill = new Bill(List.of(new Ticket("1", "VIP", 1000)), new Customer("1", "Minh", "10/10/2022", "Regular"), "1");
-        Bill bill1 = new Bill(List.of(new Ticket("1", "VIP", 3000)), new Customer("1", "Minh", "10/10/2022", "Regular"), "1");
-        Bill bill2 = new Bill(List.of(new Ticket("1", "VIP", 2000)), new Customer("1", "Minh", "10/10/2022", "Regular"), "1",LocalDate.of(2021, 10, 10));
-
-        bills.add(bill);
-        bills.add(bill1);
-        bills.add(bill2);
         try {
-            IOSystem.getInstance().write(bills, "src/main/java/com/mycompany/train_ticket/data/BILL.DAT");
-
             return IOSystem.getInstance().read("src/main/java/com/mycompany/train_ticket/data/BILL.DAT");
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -47,7 +37,7 @@ public class BillDAO {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        bills.sort((o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+        bills.sort((o1, o2) -> -o1.getDate().compareTo(o2.getDate()));
         return bills;
     }
 
