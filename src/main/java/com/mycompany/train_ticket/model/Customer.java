@@ -4,23 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Customer implements Serializable {
-    private int code;
+    private String code;
     private String fullName;
     private String birth;
     private String type;
 
-    public Customer(int code, String fullName, String birth, String type) {
+    public Customer(String code, String fullName, String birth, String type) {
         this.birth = birth;
         this.code = code;
         this.fullName = fullName;
         this.type = type;
     }
 
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
